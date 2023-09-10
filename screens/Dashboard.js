@@ -1,8 +1,11 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { CATEGORIES } from "../data/dummy-data";
 import CategoryGridTile from "../components/CategoryGridTile";
 import DamCategoryList from "./DamCategoryList";
+import Notifications from "../components/Dashboard/Notifications";
+import Forecast from "../components/Dashboard/Forecast";
+import FeaturedDam from "../components/Dashboard/FeaturedDam";
 
 function renderCategory(itemData) {
   return <CategoryGridTile name={itemData.item.name} />;
@@ -10,44 +13,25 @@ function renderCategory(itemData) {
 
 function Dashboard({ navigation }) {
   function renderDamList() {
-    navigation.navigate("DamList", {filterKey: "all", drawer: false});
+    navigation.navigate("DamList", { filterKey: "all", drawer: false });
   }
+
   return (
-    <View>
-      <View>
-        <Text>Notifications</Text>
-        <View>
-          <Text>1</Text>
+    <View style={{ flex: 5 }}>
+      <ScrollView>
+        <Notifications />
+        <View style={styles.forecast}>
+          <Forecast />
         </View>
-        <View>
-          <Text>2</Text>
+        <FeaturedDam />
+        <View style={styles.buttonContainer}>
+          <PrimaryButton
+            handler={renderDamList}
+            text="View all"
+            textDecoration=""
+          />
         </View>
-        <View>
-          <Text>3</Text>
-        </View>
-      </View>
-      <View style={styles.forecast}>
-        <Text>Weather forecast</Text>
-        <View style={styles.forecastIcons}>
-          <View style={styles.forecastIcon}>
-            <Text>1</Text>
-          </View>
-          <View style={styles.forecastIcon}>
-            <Text>2</Text>
-          </View>
-          <View style={styles.forecastIcon}>
-            <Text>3</Text>
-          </View>
-          <View style={styles.forecastIcon}>
-            <Text>4</Text>
-          </View>
-        </View>
-      </View>
-      <View>
-        <Text>Dashboard</Text>
-        <DamCategoryList />
-        <PrimaryButton onPress={renderDamList}>View all</PrimaryButton>
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -60,5 +44,8 @@ const styles = StyleSheet.create({
   },
   forecastIcon: {
     borderWidth: 2,
+  },
+  buttonContainer: {
+    alignItems: "center",
   },
 });

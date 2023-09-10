@@ -16,7 +16,7 @@ function renderListItem(itemData) {
   return <DamGridTile {...damItemProps} />;
 }
 
-function DamList({ route }) {
+function DamList({ route, navigation }) {
   const filterKey = route.params.filterKey;
   const filteredDams = DAMS.filter((dam) => {
     if (filterKey === "all") {

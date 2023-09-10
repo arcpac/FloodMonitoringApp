@@ -1,5 +1,13 @@
-import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { useNavigation } from "@react-navigation/core";
+import { useEffect } from "react";
 
 function DamGridTile({
   id,
@@ -16,12 +24,15 @@ function DamGridTile({
   function itemHandler() {
     navigation.navigate("DamItem", { damID: id });
   }
+
   return (
-    <View style={styles.tileGridStyle}>
-      <Pressable style={styles.button} onPress={itemHandler}>
-        <View>
+    <View style={styles.tileContainer}>
+      <Pressable onPress={itemHandler}>
+        <View style={styles.tile}>
           <Text>{name}</Text>
-          <Text>{capacity}</Text>
+        </View>
+        <View>
+          <Image style={styles.image} source={image} />
         </View>
       </Pressable>
     </View>
@@ -31,13 +42,24 @@ function DamGridTile({
 export default DamGridTile;
 
 const styles = StyleSheet.create({
-  tileGridStyle: {
-    borderWidth: 1,
-    margin: 4,
-    height: 150,
+  tileContainer: {
     flex: 1,
+    borderWidth: 0.5,
+    borderColor: "#A8ACAE",
+    borderRadius: 10,
+    margin: 12,
+    borderRadius: 8,
+    backgroundColor: "white",
+    elevation: 4,
+    overflow: "hidden",
   },
-  button: {
-    flex: 1,
+  tile: {
+    padding: 5,
+    alignItems: "center",
+  },
+  image: {
+    width: "100%",
+    height: 140,
+    overflow: "hidden",
   },
 });

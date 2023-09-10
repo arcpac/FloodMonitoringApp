@@ -3,7 +3,13 @@ import { CATEGORIES } from "../data/dummy-data";
 import CategoryGridTile from "../components/CategoryGridTile";
 
 function renderListItem(itemData) {
-  return <CategoryGridTile name={itemData.item.name} id={itemData.item.id} />;
+  return (
+    <CategoryGridTile
+      name={itemData.item.name}
+      image={itemData.item.image}
+      id={itemData.item.id}
+    />
+  );
 }
 
 function DamCategoryList() {

@@ -21,6 +21,7 @@ import Account from "./screens/Account/Account";
 import WatchList from "./screens/WatchList";
 import NewsFeed from "./screens/NewsFeed";
 import AccountDetails from "./screens/Account/AccountDetails";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -32,21 +33,43 @@ function Overview() {
         headerRight: () => {
           return (
             <Pressable
-              onPress={() => {
-                navigation.navigate("Home");
-                navigation.navigate("Logout");
-              }}
+              onPress={() => {}}
+              style={{ marginHorizontal: 5, marginRight: 20 }}
             >
-              <Text>Logout</Text>
+              <Text style={{ color: "#0054A5" }}>Logout</Text>
             </Pressable>
           );
         },
       })}
     >
-      <BottomTabs.Screen name="WatchList" component={WatchList} />
-      <BottomTabs.Screen name="Home" component={Dashboard} />
-      <BottomTabs.Screen name="News Feed" component={NewsFeed} />
-      <BottomTabs.Screen name="Account" component={Account} />
+      {/* <BottomTabs.Screen name="Watch List" component={WatchList} /> */}
+      <BottomTabs.Screen
+        name="Home"
+        component={Dashboard}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <BottomTabs.Screen
+        name="News Feed"
+        component={NewsFeed}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="newspaper-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <BottomTabs.Screen
+        name="Account"
+        component={Account}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person-outline" size={size} color={color} />
+          ),
+        }}
+      />
     </BottomTabs.Navigator>
   );
 }
@@ -63,29 +86,29 @@ export default function App() {
   return (
     <>
       <StatusBar style="dark" />
-      {isSignedIn ? (
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Overview"
-              component={Overview}
-              options={{ headerShown: false }}
-            ></Stack.Screen>
-            <Stack.Screen name="DamList" component={DamList}></Stack.Screen>
-            <Stack.Screen name="DamItem" component={DamItem}></Stack.Screen>
-            <Stack.Screen
-              name="ProtectionUnits"
-              component={ProtectionUnit}
-            ></Stack.Screen>
-            <Stack.Screen
-              name="accountDetails"
-              component={AccountDetails}
-            ></Stack.Screen>
-          </Stack.Navigator>
-        </NavigationContainer>
-      ) : (
-        <Login loginValidate={logInHandler} />
-      )}
+
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="login"
+            component={Login}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Overview"
+            component={Overview}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen name="DamList" component={DamList} />
+          <Stack.Screen name="DamItem" component={DamItem} />
+          <Stack.Screen name="ProtectionUnits" component={ProtectionUnit} />
+          <Stack.Screen name="accountDetails" component={AccountDetails} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </>
   );
 }
